@@ -15,11 +15,22 @@ public class App
         Connection tConnection = dataConnection.getConnection();
         if(tConnection != null){
             ProductCrud productCrud = new ProductCrud(tConnection);
-            productCrud.getAllProduct();                    
+            
+            // get all product
+            productCrud.getAllProduct();    
+            
+            // add product
+            //productCrud.addProduct(new Product(0, "Penghapus", 8000, 7));
+            
+            // update product
+            productCrud.updateProduct(5, 15000);
+            
+            // delete product
+            productCrud.deleteProduct(5);
+            
+            tConnection.close();
         }else{
             System.out.println("Connection failed!");
-        }
-        
-        tConnection.close();
+        }        
     }    
 }

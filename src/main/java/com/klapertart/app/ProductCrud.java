@@ -47,7 +47,72 @@ public class ProductCrud {
             result.close();
             state.close();
         }catch(SQLException e){
-            e.toString();
+            System.out.println(e.toString());
         }
     }
+    
+    public void addProduct(Product pProduct){
+        Statement state;
+        
+        try{
+            state = tConnection.createStatement();
+            String query = "INSERT INTO product (name, price, stock) VALUES ("
+                            + "'"+ pProduct.getName() + "',"
+                            + pProduct.getPrice() + ","
+                            + pProduct.getStock() + ")";
+            
+            int result = state.executeUpdate(query);
+            
+            if(result >= 1){
+                System.out.println("Data inserted!");
+            }else{
+                System.out.println("Add data failed!");
+            }
+            
+            state.close();
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+    }
+
+    public void updateProduct(int pId, double pPrice){
+        Statement state;
+        
+        try{
+            state = tConnection.createStatement();
+            String query = "UPDATE product SET price = " + pPrice +
+                           " WHERE id = " + pId ;
+            
+            int result = state.executeUpdate(query);            
+            if(result >= 1){
+                System.out.println("Data updated!");
+            }else{
+                System.out.println("Update data failed!");
+            }
+            
+            state.close();
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+    }
+
+    public void deleteProduct(int pId){
+        Statement state;
+        
+        try{
+            state = tConnection.createStatement();
+            String query = "DELETE FROM product WHERE id = " + pId ;
+            
+            int result = state.executeUpdate(query);            
+            if(result >= 1){
+                System.out.println("Data delete!");
+            }else{
+                System.out.println("Update data failed!");
+            }
+            
+            state.close();
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+    }    
 }
