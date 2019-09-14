@@ -5,6 +5,7 @@
  */
 package com.klapertart.app;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,10 +15,10 @@ import java.sql.Statement;
  * @author kurakuraninja
  */
 public class ProductCrud {
-    DataConnection dataConnection;
+    Connection tConnection;
 
-    public ProductCrud(DataConnection dataConnection) {
-        this.dataConnection = dataConnection;
+    public ProductCrud(Connection pConnection) {
+        this.tConnection = pConnection;
     }
     
     public void getAllProduct(){
@@ -25,7 +26,7 @@ public class ProductCrud {
         ResultSet result;
         
         try{
-            state = dataConnection.getConnection().createStatement();
+            state = tConnection.createStatement();
             String query = "SELECT * FROM product";
             
             result = state.executeQuery(query);
@@ -42,6 +43,9 @@ public class ProductCrud {
             }else{
                 System.out.println("Data is empty!");
             }
+            
+            result.close();
+            state.close();
         }catch(SQLException e){
             e.toString();
         }

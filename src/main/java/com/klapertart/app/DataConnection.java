@@ -18,29 +18,23 @@ public class DataConnection {
     String url;
     String user;
     String pass;
+    String driver;
     Connection conn;
 
-    public DataConnection(String url, String user, String pass) {
-        this.url = url;
-        this.user = user;
-        this.pass = pass;
+    public DataConnection() {
+        url = "jdbc:mysql://localhost:3306/inventory";
+        user = "root";
+        pass = "";
+        driver = "com.mysql.cj.jdbc.Driver";
     }
     
     public Connection getConnection() throws SQLException{
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(driver);
             conn = DriverManager.getConnection(url, user, pass);
         }catch(ClassNotFoundException e){
             System.out.println(e.toString());
         }
         return conn;
-    }
-    
-    public void closeConnection(){
-        try{
-            conn.close();
-        }catch(SQLException e){
-            System.out.println(e.toString());
-        }
-    }
+    }    
 }

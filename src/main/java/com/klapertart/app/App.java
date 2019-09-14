@@ -1,5 +1,6 @@
 package com.klapertart.app;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -9,16 +10,16 @@ import java.sql.SQLException;
 public class App 
 {
     public static void main( String[] args ) throws SQLException{
-        //System.out.println( getHelloWorld() );
+        DataConnection dataConnection = new DataConnection();        
         
-        DataConnection dataConnection = new DataConnection("jdbc:mysql://localhost:3306/inventory", "root", "");        
-        
-        if(dataConnection.getConnection() != null){
-            ProductCrud productCrud = new ProductCrud(dataConnection);
-            productCrud.getAllProduct();        
+        Connection tConnection = dataConnection.getConnection();
+        if(tConnection != null){
+            ProductCrud productCrud = new ProductCrud(tConnection);
+            productCrud.getAllProduct();                    
         }else{
             System.out.println("Connection failed!");
         }
         
+        tConnection.close();
     }    
 }
