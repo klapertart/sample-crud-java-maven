@@ -20,7 +20,7 @@ public class App
             productCrud.getAllProduct();    
             
             // add product
-            //productCrud.addProduct(new Product(0, "Penghapus", 8000, 7));
+            productCrud.addProduct(new Product(0, "Penghapus", 8000, 7));
             
             // update product
             productCrud.updateProduct(5, 15000);

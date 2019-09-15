@@ -107,7 +107,7 @@ public class ProductCrud {
             if(result >= 1){
                 System.out.println("Data delete!");
             }else{
-                System.out.println("Update data failed!");
+                System.out.println("Delete data failed!");
             }
             
             state.close();
