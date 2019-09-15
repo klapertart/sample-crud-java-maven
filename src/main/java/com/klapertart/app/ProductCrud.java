@@ -5,7 +5,6 @@
  */
 package com.klapertart.app;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,10 +14,10 @@ import java.sql.Statement;
  * @author kurakuraninja
  */
 public class ProductCrud {
-    Connection tConnection;
+    DataConnection dataConnection;
 
-    public ProductCrud(Connection pConnection) {
-        this.tConnection = pConnection;
+    public ProductCrud(DataConnection pDataConnection) {
+        this.dataConnection = pDataConnection;
     }
     
     public void getAllProduct(){
@@ -26,7 +25,7 @@ public class ProductCrud {
         ResultSet result;
         
         try{
-            state = tConnection.createStatement();
+            state = dataConnection.getConnection().createStatement();
             String query = "SELECT * FROM product";
             
             result = state.executeQuery(query);
@@ -46,6 +45,7 @@ public class ProductCrud {
             
             result.close();
             state.close();
+            dataConnection.closeConnection();
         }catch(SQLException e){
             System.out.println(e.toString());
         }
@@ -55,7 +55,7 @@ public class ProductCrud {
         Statement state;
         
         try{
-            state = tConnection.createStatement();
+            state = dataConnection.getConnection().createStatement();
             String query = "INSERT INTO product (name, price, stock) VALUES ("
                             + "'"+ pProduct.getName() + "',"
                             + pProduct.getPrice() + ","
@@ -70,6 +70,7 @@ public class ProductCrud {
             }
             
             state.close();
+            dataConnection.closeConnection();
         }catch(SQLException e){
             System.out.println(e.toString());
         }
@@ -79,7 +80,7 @@ public class ProductCrud {
         Statement state;
         
         try{
-            state = tConnection.createStatement();
+            state = dataConnection.getConnection().createStatement();
             String query = "UPDATE product SET price = " + pPrice +
                            " WHERE id = " + pId ;
             
@@ -91,6 +92,7 @@ public class ProductCrud {
             }
             
             state.close();
+            dataConnection.closeConnection();
         }catch(SQLException e){
             System.out.println(e.toString());
         }
@@ -100,7 +102,7 @@ public class ProductCrud {
         Statement state;
         
         try{
-            state = tConnection.createStatement();
+            state = dataConnection.getConnection().createStatement();
             String query = "DELETE FROM product WHERE id = " + pId ;
             
             int result = state.executeUpdate(query);            
@@ -111,6 +113,7 @@ public class ProductCrud {
             }
             
             state.close();
+            dataConnection.closeConnection();
         }catch(SQLException e){
             System.out.println(e.toString());
         }

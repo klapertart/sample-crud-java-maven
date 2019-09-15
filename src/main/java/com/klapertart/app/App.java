@@ -9,28 +9,18 @@ import java.sql.SQLException;
  */
 public class App 
 {
-    public static void main( String[] args ) throws SQLException{
+    public static void main( String[] args ){
         DataConnection dataConnection = new DataConnection();        
         
-        Connection tConnection = dataConnection.getConnection();
-        if(tConnection != null){
-            ProductCrud productCrud = new ProductCrud(tConnection);
-            
-            // get all product
-            productCrud.getAllProduct();    
-            
-            // add product
-            productCrud.addProduct(new Product(0, "Penghapus", 8000, 7));
-            
-            // update product
-            productCrud.updateProduct(5, 15000);
-            
-            // delete product
-            productCrud.deleteProduct(5);
-            
-            tConnection.close();
-        }else{
-            System.out.println("Connection failed!");
-        }        
+        ProductCrud productCrud = new ProductCrud(dataConnection);
+
+        // get all product
+        productCrud.getAllProduct();    
+        // add product
+        productCrud.addProduct(new Product(0, "Penghapus", 8000, 7));
+        // update product
+        productCrud.updateProduct(5, 15000);
+        // delete product
+        productCrud.deleteProduct(5);            
     }    
 }

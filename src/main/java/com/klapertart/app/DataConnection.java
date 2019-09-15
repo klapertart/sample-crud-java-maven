@@ -37,4 +37,12 @@ public class DataConnection {
         }
         return conn;
     }    
+    
+    public void closeConnection(){
+        try{
+            conn.close();
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+    }    
 }
